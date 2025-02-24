@@ -23,7 +23,7 @@ public class GameDisplay extends ScreenAdapter {
     private final TicTacToe game;
     private Stage stage;
     private Skin skin;
-
+    
     //up to you to modify these if you'd like!
     private final float BOARD_X = 90;
     private final float BOARD_Y = 70;
@@ -41,7 +41,9 @@ public class GameDisplay extends ScreenAdapter {
 
     public GameDisplay(TicTacToe game) {
         //set up the screen you you like
+        this.game = game;
         
+
         
         initTableDisplay();
         updateBoardDisplay();

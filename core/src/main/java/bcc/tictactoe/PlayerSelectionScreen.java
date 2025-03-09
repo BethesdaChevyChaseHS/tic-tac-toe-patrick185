@@ -47,7 +47,9 @@ public class PlayerSelectionScreen extends ScreenAdapter{
        TextButton button1 = new TextButton("Random AI", skin);
        button1.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                    System.out.println(curPlayer);
                     test.setPlayer(curPlayer, "Random AI");
+                    
                     
             } 
        });

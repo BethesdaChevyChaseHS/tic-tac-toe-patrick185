@@ -31,7 +31,11 @@ public class TicTacToe extends Game {
     public void dispose() {
 
     }
-
+    public void skipCheckpointOne() {
+        player1 = new Human();
+        player2 = new Human();
+        setScreen(new GameDisplay(this));
+    }
     public void setPlayer(int curPlayer, String option) {
         //checkpoint 1 - set player, then determine what screen to go to next with setScreen(new ______)
         //NOTE - the only player types that you have programmed so gr are Human and RandomAI
@@ -51,7 +55,7 @@ public class TicTacToe extends Game {
             setScreen(new PlayerSelectionScreen(this, 1));
         }
         else if (curPlayer == 1) {
-            setScreen(new GameDisplay(this));
+            
             if (option.equals("Human")) {
                 player2 = new Human();
             }
@@ -64,6 +68,8 @@ public class TicTacToe extends Game {
             else if (option.equals("Smart AI")) {
                 //player2 = new SmartAI()
             }
+            
+            setScreen(new GameDisplay(this));
         }
         
         

@@ -45,7 +45,7 @@ public class MainMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setSimulated(false);
-                game.startPlayerSelection();
+                game.skipCheckpointOne();
                 //game.setScreen(new GameScreen(game));
             }
         });

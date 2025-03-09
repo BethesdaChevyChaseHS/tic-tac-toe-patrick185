@@ -35,15 +35,25 @@ public class GameDisplay extends ScreenAdapter {
     private boolean gameOver = false;
     private Label resultLabel;
     private TextButton playAgainButton;
-
+    private Board board = new Board();
     
 
 
     public GameDisplay(TicTacToe game) {
         //set up the screen you you like
         this.game = game;
+        System.out.println("created");
+        stage = new Stage();
         
+        Gdx.input.setInputProcessor(stage);
 
+        skin = new Skin(Gdx.files.internal("skins/glassy/glassy-ui.json"));
+        Texture backgroundTexture = new Texture(Gdx.files.internal("space_tictactoe.png"));
+        Image backgroundImage = new Image(backgroundTexture);
+        backgroundImage.setFillParent(true);
+        stage.addActor(backgroundImage);
+        
+        game.setBoardState(board);
         
         initTableDisplay();
         updateBoardDisplay();
@@ -87,13 +97,34 @@ public class GameDisplay extends ScreenAdapter {
     public void handleBoardClick(int row, int col) {
         //checkpoint 2
         //this position was clicked, play the move, then call handle move made
+        Mark[][] grid = game.getBoardState().getGrid();
+        if(grid[row][col] == Mark.EMPTY && gameOver == false) {
+            grid[row][col] = game.getCurPlayerMark();
+            game.nextPlayer();
+            handleMoveMade();
+        }
+        
+        
     }
 
     public void handleMoveMade(){//checkpoint 2
         //call updateBoardDisplay
         //check for a win or tie. If there is one, call showResult() with a message containing the winner, and update the player stats. 
-       
-
+        updateBoardDisplay();
+       if (game.getBoardState().checkWin() == Mark.X) {
+            showResult("X has won");
+            System.out.println("X");
+            gameOver = true;
+       }
+       else if (game.getBoardState().checkWin() == Mark.O) {
+            System.out.println("O");
+            gameOver = true;
+            showResult("O has won");
+       }
+       if (game.getBoardState().checkWin() == Mark.TIE) {
+        gameOver = true;
+        showResult("Tie");
+       }
         //checkpoint 3 modification
         //if game is simulated, instead of having a popup by calling showresult, start the next game if we have not run all the simulations
         
@@ -101,12 +132,31 @@ public class GameDisplay extends ScreenAdapter {
 
     private void showResult(String result) {
         // Create an overlay to show the result. Include a button to play again. 
+        Container<Label> titleLabel = Constants.createLabelWithBackgrounColor(result, Color.BLACK, skin);
+        titleLabel.setBounds(150, 150, 150, 150);
+        TextButton simulateButton = new TextButton("Play again?", skin);
+        
+        simulateButton.setBounds(115, 50, 300, 100);
+        stage.addActor(simulateButton);;
+        stage.addActor(titleLabel);
+        // when the button is clicked, it should dissappear - you can do this using the .remove() command. \
+        simulateButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                resetGame();
+                simulateButton.remove();
+                titleLabel.remove();
+            }
+        });
 
-        // when the button is clicked, it should dissappear - you can do this using the .remove() command. 
         
     }
     public void resetGame() {
         //update board state, current player, etc. 
+        game.setCurPlayer(0);
+        board.reset();
+        game.setBoardState(board);
+        gameOver = false;
     }
 
     public void updateBoardDisplay() {//updates the board, you should call this if a move is made. No need to change. 

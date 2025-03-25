@@ -49,7 +49,7 @@ public class PlayerSelectionScreen extends ScreenAdapter{
             public void clicked(InputEvent event, float x, float y) {
                     System.out.println(curPlayer);
                     test.setPlayer(curPlayer, "Random AI");
-                    
+
                     
             } 
        });
@@ -66,7 +66,7 @@ public class PlayerSelectionScreen extends ScreenAdapter{
        button4.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 test.setPlayer(curPlayer, "Smart AI");
-
+                
             } 
        });
        button4.setPosition(90, 6);
@@ -90,6 +90,7 @@ public class PlayerSelectionScreen extends ScreenAdapter{
             button2.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 test.setPlayer(curPlayer, "Human");
+                
                 
             } 
             

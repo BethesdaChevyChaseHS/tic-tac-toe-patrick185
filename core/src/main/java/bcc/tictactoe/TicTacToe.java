@@ -33,7 +33,7 @@ public class TicTacToe extends Game {
     }
     public void skipCheckpointOne() {
         player1 = new Human();
-        player2 = new Human();
+        player2 = new SlightlySmartAI();
         setScreen(new GameDisplay(this));
     }
     public void setPlayer(int curPlayer, String option) {
@@ -42,6 +42,7 @@ public class TicTacToe extends Game {
         if(curPlayer == 0) {
             if (option.equals("Human")) {
                 player1 = new Human();
+                
             }
             else if (option.equals("Random AI") ) {
                 player1 = new RandomAI();
@@ -52,12 +53,15 @@ public class TicTacToe extends Game {
             else if (option.equals("Smart AI")) {
                 //player1 = new SmartAI()
             }
-            setScreen(new PlayerSelectionScreen(this, 1));
+            
         }
-        else if (curPlayer == 1) {
+        if (curPlayer == 1) {
             
             if (option.equals("Human")) {
                 player2 = new Human();
+                System.out.println("test");
+    
+                System.out.println(player2);
             }
             else if (option.equals("Random AI") ) {
                 player2 = new RandomAI();
@@ -66,10 +70,15 @@ public class TicTacToe extends Game {
                 player2 = new SlightlySmartAI();
             }
             else if (option.equals("Smart AI")) {
-                //player2 = new SmartAI()
+                player2 = new SmartAI();
+            }
+            if(isSimulated == true ) {
+                setScreen(new NumSimulationScreen(this));
+            }
+            else {
+                setScreen(new GameDisplay(this));
             }
             
-            setScreen(new GameDisplay(this));
         }
         
         

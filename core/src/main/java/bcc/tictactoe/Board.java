@@ -20,7 +20,7 @@ public class Board {
 
     public boolean makeMove(Move move, Mark mark) {//make move on the grid
         
-        return false;
+        return makeMove(move.row, move.col, mark);
     }
 
     public boolean makeMove(int row, int col, Mark mark) {
@@ -36,7 +36,7 @@ public class Board {
        //set the given grid cell to empty
         if (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length) {
         
-            grid[row][col] = null;
+            grid[row][col] = Mark.EMPTY;
         }
        
     }
@@ -61,23 +61,23 @@ public class Board {
     public Mark checkWin() {//return null if game not over
         // Check rows
         for (int i = 0; i < 3; i++) {
-            if (grid[i][0] != null && grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) {
+            if (grid[i][0] != Mark.EMPTY && grid[i][0] == grid[i][1] && grid[i][1] == grid[i][2]) {
                 return grid[i][0];
             }
         }
 
         // Check columns
         for (int j = 0; j < 3; j++) {
-            if (grid[0][j] != null && grid[0][j] == grid[1][j] && grid[1][j] == grid[2][j]) {
+            if (grid[0][j] != Mark.EMPTY && grid[0][j] == grid[1][j] && grid[1][j] == grid[2][j]) {
                 return grid[0][j];
             }
         }
 
         // Check diagonals
-        if (grid[0][0] != null && grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) {
+        if (grid[0][0] != Mark.EMPTY && grid[0][0] == grid[1][1] && grid[1][1] == grid[2][2]) {
             return grid[0][0];
         }
-        if (grid[0][2] != null && grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]) {
+        if (grid[0][2] != Mark.EMPTY && grid[0][2] == grid[1][1] && grid[1][1] == grid[2][0]) {
             return grid[0][2];
         }
 

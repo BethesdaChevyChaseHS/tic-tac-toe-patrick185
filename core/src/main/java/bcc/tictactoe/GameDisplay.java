@@ -52,7 +52,7 @@ public class GameDisplay extends ScreenAdapter {
         Image backgroundImage = new Image(backgroundTexture);
         backgroundImage.setFillParent(true);
         stage.addActor(backgroundImage);
-        
+        System.out.println(game.getCurPlayerObj());
         game.setBoardState(board);
         
         initTableDisplay();
@@ -98,7 +98,7 @@ public class GameDisplay extends ScreenAdapter {
         //checkpoint 2
         //this position was clicked, play the move, then call handle move made
         Mark[][] grid = game.getBoardState().getGrid();
-        if(grid[row][col] == Mark.EMPTY && gameOver == false) {
+        if(grid[row][col] == Mark.EMPTY && gameOver == false && game.getCurPlayerObj().toString().equals("Human")) {
             grid[row][col] = game.getCurPlayerMark();
             game.nextPlayer();
             handleMoveMade();
@@ -188,6 +188,17 @@ public class GameDisplay extends ScreenAdapter {
 
         //checkpoint 3 - if it is not a humans turn, automate the AI's move here
         //call handleMoveMade afterwards
+        
+        if (!game.getCurPlayerObj().toString().equals("Human")) {
+            if(gameOver == false) {
+                Mark[][] grid = game.getBoardState().getGrid();
+                int row = game.getCurPlayerObj().makeMove(board, game.getCurPlayerMark()).row;
+                int col = game.getCurPlayerObj().makeMove(board, game.getCurPlayerMark()).col;
+                grid[row][col] = game.getCurPlayerMark();
+                game.nextPlayer();
+                handleMoveMade();
+            }
+        }
     }
 
     @Override
